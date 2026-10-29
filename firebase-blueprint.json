@@ -1,0 +1,183 @@
+{
+  "entities": {
+    "Profile": {
+      "title": "Profile",
+      "description": "User profile containing basic personal details and role.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "email": { "type": "string", "format": "email", "maxLength": 256 },
+        "full_name": { "type": "string", "maxLength": 128 },
+        "phone": { "type": "string", "maxLength": 32 },
+        "role": { "type": "string", "enum": ["devotee", "pandit", "admin"] },
+        "avatar_url": { "type": "string", "maxLength": 1024 },
+        "created_at": { "type": "string", "format": "date-time" },
+        "updated_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "email", "full_name", "role", "created_at", "updated_at"]
+    },
+    "PanditProfile": {
+      "title": "PanditProfile",
+      "description": "Priest specific professional attributes, bio, languages, and pooja specialties.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "user_id": { "type": "string", "maxLength": 128 },
+        "bio": { "type": "string", "maxLength": 2048 },
+        "languages": { "type": "array", "items": { "type": "string", "maxLength": 64 } },
+        "specialties": { "type": "array", "items": { "type": "string", "maxLength": 128 } },
+        "experience_years": { "type": "number" },
+        "city": { "type": "string", "maxLength": 128 },
+        "base_price": { "type": "number" },
+        "rating": { "type": "number" },
+        "review_count": { "type": "number" },
+        "is_verified": { "type": "boolean" },
+        "is_available": { "type": "boolean" },
+        "total_earnings": { "type": "number" },
+        "completed_bookings": { "type": "number" },
+        "created_at": { "type": "string", "format": "date-time" },
+        "updated_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "user_id", "city", "base_price", "is_verified", "is_available", "created_at", "updated_at"]
+    },
+    "Service": {
+      "title": "Service",
+      "description": "Vedic pooja or ritual catalog entry.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 128 },
+        "category": { "type": "string", "maxLength": 64 },
+        "description": { "type": "string", "maxLength": 2048 },
+        "price": { "type": "number" },
+        "duration_mins": { "type": "number" },
+        "samagri_list": { "type": "array", "items": { "type": "string", "maxLength": 128 } },
+        "image_url": { "type": "string", "maxLength": 1024 },
+        "is_active": { "type": "boolean" },
+        "created_at": { "type": "string", "format": "date-time" },
+        "updated_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "name", "category", "price", "is_active", "created_at", "updated_at"]
+    },
+    "Booking": {
+      "title": "Booking",
+      "description": "Pooja reservation between a devotee and a pandit.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "devotee_id": { "type": "string", "maxLength": 128 },
+        "pandit_id": { "type": "string", "maxLength": 128 },
+        "service_id": { "type": "string", "maxLength": 128 },
+        "scheduled_at": { "type": "string", "format": "date-time" },
+        "mode": { "type": "string", "enum": ["home", "online", "temple"] },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "completed", "rejected", "cancelled"] },
+        "gotra": { "type": "string", "maxLength": 128 },
+        "sankalp": { "type": "string", "maxLength": 1024 },
+        "address": { "type": "string", "maxLength": 512 },
+        "notes": { "type": "string", "maxLength": 1024 },
+        "video_link": { "type": "string", "maxLength": 512 },
+        "amount": { "type": "number" },
+        "created_at": { "type": "string", "format": "date-time" },
+        "updated_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "devotee_id", "service_id", "scheduled_at", "mode", "status", "amount", "created_at", "updated_at"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "Samagri and pooja item catalog entry.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 128 },
+        "category": { "type": "string", "maxLength": 64 },
+        "description": { "type": "string", "maxLength": 1024 },
+        "price": { "type": "number" },
+        "stock": { "type": "number" },
+        "image_url": { "type": "string", "maxLength": 1024 },
+        "is_active": { "type": "boolean" },
+        "created_at": { "type": "string", "format": "date-time" },
+        "updated_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "name", "price", "stock", "is_active", "created_at", "updated_at"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Samagri store checkout order.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "user_id": { "type": "string", "maxLength": 128 },
+        "total": { "type": "number" },
+        "status": { "type": "string", "enum": ["placed", "shipped", "delivered", "cancelled"] },
+        "shipping_address": { "type": "string", "maxLength": 512 },
+        "created_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "user_id", "total", "status", "shipping_address", "created_at"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "Rating and feedback for completed poojas.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "booking_id": { "type": "string", "maxLength": 128 },
+        "devotee_id": { "type": "string", "maxLength": 128 },
+        "pandit_id": { "type": "string", "maxLength": 128 },
+        "rating": { "type": "number" },
+        "comment": { "type": "string", "maxLength": 1024 },
+        "created_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "booking_id", "devotee_id", "pandit_id", "rating", "comment", "created_at"]
+    },
+    "AppNotification": {
+      "title": "AppNotification",
+      "description": "User in-app notifications for bookings, orders, and status updates.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "user_id": { "type": "string", "maxLength": 128 },
+        "type": { "type": "string", "maxLength": 64 },
+        "title": { "type": "string", "maxLength": 128 },
+        "body": { "type": "string", "maxLength": 512 },
+        "link": { "type": "string", "maxLength": 256 },
+        "is_read": { "type": "boolean" },
+        "created_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "user_id", "title", "body", "is_read", "created_at"]
+    }
+  },
+  "firestore": {
+    "/profiles/{profileId}": {
+      "schema": "Profile",
+      "description": "User profiles for devotees, pandits, and admins."
+    },
+    "/pandit_profiles/{panditProfileId}": {
+      "schema": "PanditProfile",
+      "description": "Professional pandit records and credentials."
+    },
+    "/services/{serviceId}": {
+      "schema": "Service",
+      "description": "Catalog of poojas and sacred ceremonies."
+    },
+    "/bookings/{bookingId}": {
+      "schema": "Booking",
+      "description": "Reservations for poojas created by devotees and fulfilled by pandits."
+    },
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Pooja samagri and sacred kits."
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Devotee store orders."
+    },
+    "/reviews/{reviewId}": {
+      "schema": "Review",
+      "description": "Devotee reviews for pandit services."
+    },
+    "/notifications/{notificationId}": {
+      "schema": "AppNotification",
+      "description": "In-app notifications for users."
+    }
+  }
+}

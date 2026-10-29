@@ -1,0 +1,88 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    // Profiles Collection
+    match /profiles/{profileId} {
+      allow read: if true;
+      allow create: if true;
+      allow update: if true;
+      allow delete: if false;
+    }
+
+    // Pandit Profiles
+    match /pandit_profiles/{panditProfileId} {
+      allow read: if true;
+      allow create: if true;
+      allow update: if true;
+      allow delete: if false;
+    }
+
+    // Services Catalog
+    match /services/{serviceId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Bookings (Devotee & Pandit Poojas)
+    match /bookings/{bookingId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Booking Status Log
+    match /booking_status_log/{logId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Products Catalog
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Cart Items
+    match /cart_items/{cartItemId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Orders & Order Items
+    match /orders/{orderId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    match /order_items/{orderItemId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Reviews
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Notifications
+    match /notifications/{notificationId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Digital Sankalp Patra Certificates
+    match /sankalp_patra/{sankalpId} {
+      allow read: if true;
+      allow write: if true;
+    }
+  }
+}

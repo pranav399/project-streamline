@@ -1,0 +1,6 @@
+{
+  "name": "PoojaConnect",
+  "description": "An online platform for booking Pandits, scheduling Poojas, and purchasing Pooja Samagri.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
